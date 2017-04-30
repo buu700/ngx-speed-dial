@@ -1,0 +1,29 @@
+{
+  "name": "angular-smd",
+  "description": "Simple Material Design components for Angular",
+  "version": "1.0.0",
+  "license": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jefersonestevo/angular-smd.git"
+  },
+  "dependencies": {
+    "@angular/common": "^4",
+    "@angular/compiler": "^4",
+    "@angular/core": "^4",
+    "@angular/forms": "^4",
+    "@angular/http": "^4",
+    "@angular/material": "^2.0.0-beta.3",
+    "@angular/platform-browser": "^4",
+    "@angular/platform-browser-dynamic": "^4",
+    "@angular/router": "^4",
+    "babel-core": "6.21.0",
+    "babel-polyfill": "6.20.0",
+    "dateformat": "2.0.0",
+    "debug": "2.5.2",
+    "hammerjs": "^2",
+    "reflect-metadata": "^0",
+    "rxjs": "^5",
+    "zone.js": "^0"
+  }
+}
