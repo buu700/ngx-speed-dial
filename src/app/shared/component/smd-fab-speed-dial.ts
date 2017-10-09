@@ -16,7 +16,7 @@ import {
     HostListener,
     Injector
 } from "@angular/core";
-import {MdButton} from "@angular/material";
+import {MatButton} from "@angular/material";
 
 const Z_INDEX_ITEM: number = 23;
 
@@ -58,7 +58,7 @@ export class SmdFabSpeedDialTrigger {
 })
 export class SmdFabSpeedDialActions implements AfterContentInit {
 
-    @ContentChildren(MdButton) _buttons: QueryList<MdButton>;
+    @ContentChildren(MatButton) _buttons: QueryList<MatButton>;
 
     private readonly _parent: SmdFabSpeedDialComponent;
 
