@@ -277,6 +277,9 @@ var SmdFabSpeedDialModule = /** @class */ (function () {
                 SmdFabSpeedDialActions,
                 SmdFabSpeedDialComponent,
                 SmdFabSpeedDialTrigger
+            ],
+            imports: [
+                material_1.MatButtonModule
             ]
         })
     ], SmdFabSpeedDialModule);
