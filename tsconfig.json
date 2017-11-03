@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "es2015",
+		"declaration": true,
+		"sourceMap": true,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"outDir": "./dist",
+		"lib": ["es2015", "dom"]
+	},
+	"files": [
+		"./smd-fab-speed-dial.ts"
+	],
+	"angularCompilerOptions": {
+		"skipTemplateCodegen": true
+	}
+}
