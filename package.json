@@ -1,21 +1,29 @@
 {
 	"name": "angular-speed-dial",
 	"description": "FAB Speed Dial component for Angular Material",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"main": "./dist/smd-fab-speed-dial.es5.js",
 	"module": "./dist/smd-fab-speed-dial.js",
 	"jsnext:main": "./dist/smd-fab-speed-dial.js",
 	"typings": "./dist/smd-fab-speed-dial.d.ts",
-	"license": "",
+	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/jefersonestevo/angular-smd.git"
 	},
 	"dependencies": {
-		"@angular/core": "*",
-		"@angular/material": "^2.0.0-beta"
+		"@angular/cdk": "^2.0.0-beta",
+		"@angular/core": "^5",
+		"@angular/material": "^2.0.0-beta",
+		"rxjs": "*",
+		"zone.js": "*"
+	},
+	"devDependencies": {
+		"@angular/compiler": "^5",
+		"@angular/compiler-cli": "^5",
+		"typescript": "2.4.2"
 	},
 	"scripts": {
-		"build": "rm -rf dist 2> /dev/null ; tsc -p tsconfig.es5.json ; mv dist/smd-fab-speed-dial.js dist/smd-fab-speed-dial.es5.js ; mv dist/smd-fab-speed-dial.js.map dist/smd-fab-speed-dial.es5.js.map ; rm dist/smd-fab-speed-dial.d.ts ; ngc -p ."
+		"build": "rm -rf dist 2> /dev/null ; ngc -p tsconfig.es5.json ; mv dist/smd-fab-speed-dial.js dist/smd-fab-speed-dial.es5.js ; mv dist/smd-fab-speed-dial.js.map dist/smd-fab-speed-dial.es5.js.map ; rm dist/smd-fab-speed-dial.d.ts dist/smd-fab-speed-dial.metadata.json ; ngc -p ."
 	}
 }
