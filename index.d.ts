@@ -56,3 +56,6 @@ export declare class SmdFabSpeedDialComponent implements AfterContentInit {
     setActionsVisibility(): void;
     private _setElementClass(elemClass, isAdd);
 }
+/** Speed dial module. */
+export declare class SmdFabSpeedDialModule {
+}

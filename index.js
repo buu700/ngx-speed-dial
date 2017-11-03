@@ -262,3 +262,24 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
     return SmdFabSpeedDialComponent;
 }());
 exports.SmdFabSpeedDialComponent = SmdFabSpeedDialComponent;
+/** Speed dial module. */
+var SmdFabSpeedDialModule = /** @class */ (function () {
+    function SmdFabSpeedDialModule() {
+    }
+    SmdFabSpeedDialModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                SmdFabSpeedDialActions,
+                SmdFabSpeedDialComponent,
+                SmdFabSpeedDialTrigger
+            ],
+            exports: [
+                SmdFabSpeedDialActions,
+                SmdFabSpeedDialComponent,
+                SmdFabSpeedDialTrigger
+            ]
+        })
+    ], SmdFabSpeedDialModule);
+    return SmdFabSpeedDialModule;
+}());
+exports.SmdFabSpeedDialModule = SmdFabSpeedDialModule;
