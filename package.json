@@ -1,7 +1,7 @@
 {
   "name": "angular-speed-dial",
   "description": "FAB Speed Dial component for Angular Material",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "license": "",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@angular/core": "*",
-    "@angular/material": "*"
+    "@angular/material": "^2.0.0-beta"
   },
   "scripts": {
     "build": "tsc -d src/app/shared/component/smd-fab-speed-dial.ts --experimentalDecorators -t ES5 --lib dom,dom.iterable,es2016,scripthost ; mv src/app/shared/component/smd-fab-speed-dial.js index.js ; mv src/app/shared/component/smd-fab-speed-dial.d.ts index.d.ts"
