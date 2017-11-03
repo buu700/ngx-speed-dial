@@ -2,6 +2,7 @@
 
 import {
     Component,
+    NgModule,
     Input,
     Output,
     EventEmitter,
@@ -257,3 +258,19 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
         this.renderer.setElementClass(this.elementRef.nativeElement, `smd-${elemClass}`, isAdd);
     }
 }
+
+
+/** Speed dial module. */
+@NgModule({
+    declarations: [
+        SmdFabSpeedDialActions,
+		SmdFabSpeedDialComponent,
+        SmdFabSpeedDialTrigger
+    ],
+    exports: [
+        SmdFabSpeedDialActions,
+		SmdFabSpeedDialComponent,
+        SmdFabSpeedDialTrigger
+    ]
+})
+export class SmdFabSpeedDialModule {}
