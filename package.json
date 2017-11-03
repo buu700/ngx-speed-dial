@@ -1,7 +1,7 @@
 {
-  "name": "angular-smd",
-  "description": "Simple Material Design components for Angular",
-  "version": "1337.0.0",
+  "name": "angular-speed-dial",
+  "description": "FAB Speed Dial component for Angular Material",
+  "version": "1.0.0",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "license": "",
