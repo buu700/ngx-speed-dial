@@ -2,7 +2,7 @@
 /* tslint:disable */
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var material_1 = require("@angular/material");
+var button_1 = require("@angular/material/button");
 var Z_INDEX_ITEM = 23;
 var SmdFabSpeedDialTrigger = (function () {
     function SmdFabSpeedDialTrigger(injector) {
@@ -118,7 +118,7 @@ var SmdFabSpeedDialActions = (function () {
         { type: core_1.Renderer, },
     ]; };
     SmdFabSpeedDialActions.propDecorators = {
-        "_buttons": [{ type: core_1.ContentChildren, args: [material_1.MatButton,] },],
+        "_buttons": [{ type: core_1.ContentChildren, args: [button_1.MatButton,] },],
     };
     return SmdFabSpeedDialActions;
 }());
@@ -277,7 +277,7 @@ var SmdFabSpeedDialModule = (function () {
                         SmdFabSpeedDialTrigger
                     ],
                     imports: [
-                        material_1.MatButtonModule
+                        button_1.MatButtonModule
                     ]
                 },] },
     ];

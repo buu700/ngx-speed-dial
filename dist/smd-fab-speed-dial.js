@@ -1,6 +1,6 @@
 /* tslint:disable */
 import { Component, NgModule, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, Renderer, ContentChildren, QueryList, ContentChild, HostBinding, HostListener, Injector } from "@angular/core";
-import { MatButton, MatButtonModule } from "@angular/material";
+import { MatButton, MatButtonModule } from "@angular/material/button";
 var Z_INDEX_ITEM = 23;
 var SmdFabSpeedDialTrigger = (function () {
     function SmdFabSpeedDialTrigger(injector) {
