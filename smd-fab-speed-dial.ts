@@ -17,7 +17,7 @@ import {
 	HostListener,
 	Injector
 } from "@angular/core";
-import {MatButton, MatButtonModule} from "@angular/material";
+import {MatButton, MatButtonModule} from "@angular/material/button";
 
 const Z_INDEX_ITEM: number = 23;
 
