@@ -15,7 +15,9 @@
 		"@angular/cdk": "next",
 		"@angular/common": "next",
 		"@angular/core": "next",
-		"@angular/material": "next"
+		"@angular/forms": "next",
+		"@angular/material": "next",
+		"@angular/platform-browser": "next"
 	},
 	"devDependencies": {
 		"@angular/compiler": "next",
