@@ -2,7 +2,7 @@
 import { Component, NgModule, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, Renderer, ContentChildren, QueryList, ContentChild, HostBinding, HostListener, Injector } from "@angular/core";
 import { MatButton, MatButtonModule } from "@angular/material/button";
 var Z_INDEX_ITEM = 23;
-var SmdFabSpeedDialTrigger = (function () {
+var SmdFabSpeedDialTrigger = /** @class */ (function () {
     function SmdFabSpeedDialTrigger(injector) {
         /**
              * Whether this trigger should spin (360dg) while opening the speed dial
@@ -33,7 +33,7 @@ var SmdFabSpeedDialTrigger = (function () {
     return SmdFabSpeedDialTrigger;
 }());
 export { SmdFabSpeedDialTrigger };
-var SmdFabSpeedDialActions = (function () {
+var SmdFabSpeedDialActions = /** @class */ (function () {
     function SmdFabSpeedDialActions(injector, renderer) {
         this.renderer = renderer;
         this._parent = injector.get(SmdFabSpeedDialComponent);
@@ -121,7 +121,7 @@ var SmdFabSpeedDialActions = (function () {
     return SmdFabSpeedDialActions;
 }());
 export { SmdFabSpeedDialActions };
-var SmdFabSpeedDialComponent = (function () {
+var SmdFabSpeedDialComponent = /** @class */ (function () {
     function SmdFabSpeedDialComponent(elementRef, renderer) {
         this.elementRef = elementRef;
         this.renderer = renderer;
@@ -259,7 +259,7 @@ var SmdFabSpeedDialComponent = (function () {
 }());
 export { SmdFabSpeedDialComponent };
 /** Speed dial module. */
-var SmdFabSpeedDialModule = (function () {
+var SmdFabSpeedDialModule = /** @class */ (function () {
     function SmdFabSpeedDialModule() {
     }
     SmdFabSpeedDialModule.decorators = [
@@ -279,8 +279,6 @@ var SmdFabSpeedDialModule = (function () {
                     ]
                 },] },
     ];
-    /** @nocollapse */
-    SmdFabSpeedDialModule.ctorParameters = function () { return []; };
     return SmdFabSpeedDialModule;
 }());
 export { SmdFabSpeedDialModule };
