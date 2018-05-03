@@ -1,7 +1,7 @@
 {
 	"name": "angular-speed-dial",
 	"description": "FAB Speed Dial component for Angular Material",
-	"version": "6.0.0-rc.0",
+	"version": "6.0.0",
 	"main": "./dist/smd-fab-speed-dial.es5.js",
 	"module": "./dist/smd-fab-speed-dial.js",
 	"jsnext:main": "./dist/smd-fab-speed-dial.js",
@@ -12,16 +12,16 @@
 		"url": "https://github.com/buu700/angular-speed-dial.git"
 	},
 	"dependencies": {
-		"@angular/cdk": "next",
-		"@angular/common": "next",
-		"@angular/core": "next",
-		"@angular/forms": "next",
-		"@angular/material": "next",
-		"@angular/platform-browser": "next"
+		"@angular/cdk": "^6",
+		"@angular/common": "^6",
+		"@angular/core": "^6",
+		"@angular/forms": "^6",
+		"@angular/material": "^6",
+		"@angular/platform-browser": "^6"
 	},
 	"devDependencies": {
-		"@angular/compiler": "next",
-		"@angular/compiler-cli": "next",
+		"@angular/compiler": "^6",
+		"@angular/compiler-cli": "^6",
 		"@types/node": "^9",
 		"@types/webpack": "^4",
 		"rxjs": "^6",
