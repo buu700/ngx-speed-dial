@@ -5,8 +5,8 @@ var Z_INDEX_ITEM = 23;
 var SmdFabSpeedDialTrigger = /** @class */ (function () {
     function SmdFabSpeedDialTrigger(injector) {
         /**
-             * Whether this trigger should spin (360dg) while opening the speed dial
-             */
+         * Whether this trigger should spin (360dg) while opening the speed dial
+         */
         this.spin = false;
         this._parent = injector.get(SmdFabSpeedDialComponent);
     }
@@ -24,11 +24,11 @@ var SmdFabSpeedDialTrigger = /** @class */ (function () {
     ];
     /** @nocollapse */
     SmdFabSpeedDialTrigger.ctorParameters = function () { return [
-        { type: Injector, },
+        { type: Injector }
     ]; };
     SmdFabSpeedDialTrigger.propDecorators = {
-        "spin": [{ type: HostBinding, args: ['class.smd-spin',] }, { type: Input },],
-        "_onClick": [{ type: HostListener, args: ['click', ['$event'],] },],
+        spin: [{ type: HostBinding, args: ['class.smd-spin',] }, { type: Input }],
+        _onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
     };
     return SmdFabSpeedDialTrigger;
 }());
@@ -112,11 +112,11 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
     ];
     /** @nocollapse */
     SmdFabSpeedDialActions.ctorParameters = function () { return [
-        { type: Injector, },
-        { type: Renderer, },
+        { type: Injector },
+        { type: Renderer }
     ]; };
     SmdFabSpeedDialActions.propDecorators = {
-        "_buttons": [{ type: ContentChildren, args: [MatButton,] },],
+        _buttons: [{ type: ContentChildren, args: [MatButton,] }]
     };
     return SmdFabSpeedDialActions;
 }());
@@ -130,16 +130,16 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
         this._open = false;
         this._animationMode = 'fling';
         /**
-             * Whether this speed dial is fixed on screen (user cannot change it by clicking)
-             */
+         * Whether this speed dial is fixed on screen (user cannot change it by clicking)
+         */
         this.fixed = false;
         this.openChange = new EventEmitter();
     }
     Object.defineProperty(SmdFabSpeedDialComponent.prototype, "open", {
-        get: /**
-             * Whether this speed dial is opened
-             */
-        function () {
+        /**
+         * Whether this speed dial is opened
+         */
+        get: function () {
             return this._open;
         },
         set: function (open) {
@@ -156,10 +156,10 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(SmdFabSpeedDialComponent.prototype, "direction", {
-        get: /**
-             * The direction of the speed dial. Can be 'up', 'down', 'left' or 'right'
-             */
-        function () {
+        /**
+         * The direction of the speed dial. Can be 'up', 'down', 'left' or 'right'
+         */
+        get: function () {
             return this._direction;
         },
         set: function (direction) {
@@ -177,10 +177,10 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(SmdFabSpeedDialComponent.prototype, "animationMode", {
-        get: /**
-             * The animation mode to open the speed dial. Can be 'fling' or 'scale'
-             */
-        function () {
+        /**
+         * The animation mode to open the speed dial. Can be 'fling' or 'scale'
+         */
+        get: function () {
             return this._animationMode;
         },
         set: function (animationMode) {
@@ -208,13 +208,7 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
     /**
      * Toggle the open state of this speed dial
      */
-    /**
-         * Toggle the open state of this speed dial
-         */
-    SmdFabSpeedDialComponent.prototype.toggle = /**
-         * Toggle the open state of this speed dial
-         */
-    function () {
+    SmdFabSpeedDialComponent.prototype.toggle = function () {
         this.open = !this.open;
     };
     SmdFabSpeedDialComponent.prototype._onClick = function () {
@@ -243,17 +237,17 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     SmdFabSpeedDialComponent.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Renderer, },
+        { type: ElementRef },
+        { type: Renderer }
     ]; };
     SmdFabSpeedDialComponent.propDecorators = {
-        "fixed": [{ type: Input },],
-        "open": [{ type: HostBinding, args: ['class.smd-opened',] }, { type: Input },],
-        "direction": [{ type: Input },],
-        "animationMode": [{ type: Input },],
-        "openChange": [{ type: Output },],
-        "_childActions": [{ type: ContentChild, args: [SmdFabSpeedDialActions,] },],
-        "_onClick": [{ type: HostListener, args: ['click',] },],
+        fixed: [{ type: Input }],
+        open: [{ type: HostBinding, args: ['class.smd-opened',] }, { type: Input }],
+        direction: [{ type: Input }],
+        animationMode: [{ type: Input }],
+        openChange: [{ type: Output }],
+        _childActions: [{ type: ContentChild, args: [SmdFabSpeedDialActions,] }],
+        _onClick: [{ type: HostListener, args: ['click',] }]
     };
     return SmdFabSpeedDialComponent;
 }());
