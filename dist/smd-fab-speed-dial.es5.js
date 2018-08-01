@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var button_1 = require("@angular/material/button");
+var tooltip_1 = require("@angular/material/tooltip");
 var rxjs_1 = require("rxjs");
 var Z_INDEX_ITEM = 23;
 var SmdFabSpeedDialTrigger = /** @class */ (function () {
@@ -11,12 +12,53 @@ var SmdFabSpeedDialTrigger = /** @class */ (function () {
          * Whether this trigger should spin (360dg) while opening the speed dial
          */
         this.spin = false;
+        this.isOpen = false;
+        this.tooltipEventsSet = false;
         this._parent = injector.get(SmdFabSpeedDialComponent);
     }
     SmdFabSpeedDialTrigger.prototype._onClick = function (event) {
-        if (!this._parent.fixed) {
+        if (!this._parent.fixed && !this._parent.forceTooltips) {
             this._parent.toggle();
             event.stopPropagation();
+        }
+    };
+    SmdFabSpeedDialTrigger.prototype.getAllButtons = function () {
+        return (this._anchors ? this._anchors.toArray() : []).concat((this._buttons ? this._buttons.toArray() : []));
+    };
+    SmdFabSpeedDialTrigger.prototype.showTooltips = function () {
+        var _this = this;
+        if (this._parent.forceTooltips && this.isOpen && this._tooltips) {
+            this._tooltips.forEach(function (tooltip, i) {
+                tooltip.hide();
+                for (var n = i * 65 + 3; n <= 1500; n += 150) {
+                    setTimeout(function () {
+                        if (_this.isOpen && !tooltip._isTooltipVisible()) {
+                            tooltip.show();
+                        }
+                    }, n);
+                }
+            });
+        }
+    };
+    SmdFabSpeedDialTrigger.prototype.show = function () {
+        var _this = this;
+        this.isOpen = true;
+        if (this._parent.forceTooltips && !this.tooltipEventsSet) {
+            this.tooltipEventsSet = true;
+            this.getAllButtons().forEach(function (button) {
+                button._getHostElement().addEventListener('mouseleave', function () {
+                    _this.showTooltips();
+                });
+            });
+        }
+        this.showTooltips();
+    };
+    SmdFabSpeedDialTrigger.prototype.hide = function () {
+        this.isOpen = false;
+        if (this._parent.forceTooltips && this._tooltips) {
+            this._tooltips.forEach(function (tooltip) {
+                tooltip.hide();
+            });
         }
     };
     SmdFabSpeedDialTrigger.decorators = [
@@ -31,6 +73,9 @@ var SmdFabSpeedDialTrigger = /** @class */ (function () {
     ]; };
     SmdFabSpeedDialTrigger.propDecorators = {
         spin: [{ type: core_1.HostBinding, args: ['class.smd-spin',] }, { type: core_1.Input }],
+        _anchors: [{ type: core_1.ContentChildren, args: [button_1.MatAnchor,] }],
+        _buttons: [{ type: core_1.ContentChildren, args: [button_1.MatButton,] }],
+        _tooltips: [{ type: core_1.ContentChildren, args: [tooltip_1.MatTooltip,] }],
         _onClick: [{ type: core_1.HostListener, args: ['click', ['$event'],] }]
     };
     return SmdFabSpeedDialTrigger;
@@ -39,8 +84,13 @@ exports.SmdFabSpeedDialTrigger = SmdFabSpeedDialTrigger;
 var SmdFabSpeedDialActions = /** @class */ (function () {
     function SmdFabSpeedDialActions(injector, renderer) {
         this.renderer = renderer;
+        this.isOpen = false;
+        this.tooltipEventsSet = false;
         this._parent = injector.get(SmdFabSpeedDialComponent);
     }
+    SmdFabSpeedDialActions.prototype.getAllButtons = function () {
+        return (this._anchors ? this._anchors.toArray() : []).concat((this._buttons ? this._buttons.toArray() : []));
+    };
     SmdFabSpeedDialActions.prototype.ngAfterContentInit = function () {
         var _this = this;
         rxjs_1.combineLatest(this._anchors.changes, this._buttons.changes).subscribe(function () {
@@ -51,49 +101,76 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
     };
     SmdFabSpeedDialActions.prototype.initButtonStates = function () {
         var _this = this;
-        this._anchors.toArray().concat(this._buttons.toArray()).forEach(function (button, i) {
+        this.getAllButtons().forEach(function (button, i) {
             _this.renderer.setElementClass(button._getHostElement(), 'smd-fab-action-item', true);
             _this.changeElementStyle(button._getHostElement(), 'z-index', '' + (Z_INDEX_ITEM - i));
         });
     };
-    SmdFabSpeedDialActions.prototype.show = function () {
+    SmdFabSpeedDialActions.prototype.showTooltips = function () {
         var _this = this;
-        if (this._anchors && this._buttons) {
-            this._anchors.toArray().concat(this._buttons.toArray()).forEach(function (button, i) {
-                var transitionDelay = 0;
-                var transform;
-                if (_this._parent.animationMode == 'scale') {
-                    // Incremental transition delay of 65ms for each action button
-                    transitionDelay = 3 + (65 * i);
-                    transform = 'scale(1)';
+        if (this._parent.forceTooltips && this.isOpen && this._tooltips) {
+            this._tooltips.forEach(function (tooltip, i) {
+                tooltip.hide();
+                for (var n = i * 65 + 3; n <= 1500; n += 150) {
+                    setTimeout(function () {
+                        if (_this.isOpen && !tooltip._isTooltipVisible()) {
+                            tooltip.show();
+                        }
+                    }, n);
                 }
-                else {
-                    transform = _this.getTranslateFunction('0');
-                }
-                _this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
-                _this.changeElementStyle(button._getHostElement(), 'opacity', '1');
-                _this.changeElementStyle(button._getHostElement(), 'transform', transform);
             });
         }
     };
+    SmdFabSpeedDialActions.prototype.show = function () {
+        var _this = this;
+        this.isOpen = true;
+        this.getAllButtons().forEach(function (button, i) {
+            var transitionDelay = 0;
+            var transform;
+            if (_this._parent.animationMode == 'scale') {
+                // Incremental transition delay of 65ms for each action button
+                transitionDelay = 3 + (65 * i);
+                transform = 'scale(1)';
+            }
+            else {
+                transform = _this.getTranslateFunction('0');
+            }
+            _this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
+            _this.changeElementStyle(button._getHostElement(), 'opacity', '1');
+            _this.changeElementStyle(button._getHostElement(), 'transform', transform);
+            if (_this._parent.forceTooltips && !_this.tooltipEventsSet) {
+                button._getHostElement().addEventListener('mouseleave', function () {
+                    _this.showTooltips();
+                });
+            }
+        });
+        if (this._parent.forceTooltips) {
+            this.tooltipEventsSet = true;
+        }
+        this.showTooltips();
+    };
     SmdFabSpeedDialActions.prototype.hide = function () {
         var _this = this;
-        if (this._anchors && this._buttons) {
-            this._anchors.toArray().concat(this._buttons.toArray()).forEach(function (button, i) {
-                var opacity = '1';
-                var transitionDelay = 0;
-                var transform;
-                if (_this._parent.animationMode == 'scale') {
-                    transitionDelay = 3 - (65 * i);
-                    transform = 'scale(0)';
-                    opacity = '0';
-                }
-                else {
-                    transform = _this.getTranslateFunction((55 * (i + 1) - (i * 5)) + 'px');
-                }
-                _this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
-                _this.changeElementStyle(button._getHostElement(), 'opacity', opacity);
-                _this.changeElementStyle(button._getHostElement(), 'transform', transform);
+        this.isOpen = false;
+        this.getAllButtons().forEach(function (button, i) {
+            var opacity = '1';
+            var transitionDelay = 0;
+            var transform;
+            if (_this._parent.animationMode == 'scale') {
+                transitionDelay = 3 - (65 * i);
+                transform = 'scale(0)';
+                opacity = '0';
+            }
+            else {
+                transform = _this.getTranslateFunction((55 * (i + 1) - (i * 5)) + 'px');
+            }
+            _this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
+            _this.changeElementStyle(button._getHostElement(), 'opacity', opacity);
+            _this.changeElementStyle(button._getHostElement(), 'transform', transform);
+        });
+        if (this._parent.forceTooltips && this._tooltips) {
+            this._tooltips.forEach(function (tooltip) {
+                tooltip.hide();
             });
         }
     };
@@ -120,7 +197,8 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
     ]; };
     SmdFabSpeedDialActions.propDecorators = {
         _anchors: [{ type: core_1.ContentChildren, args: [button_1.MatAnchor,] }],
-        _buttons: [{ type: core_1.ContentChildren, args: [button_1.MatButton,] }]
+        _buttons: [{ type: core_1.ContentChildren, args: [button_1.MatButton,] }],
+        _tooltips: [{ type: core_1.ContentChildren, args: [tooltip_1.MatTooltip,] }]
     };
     return SmdFabSpeedDialActions;
 }());
@@ -137,6 +215,10 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
          * Whether this speed dial is fixed on screen (user cannot change it by clicking)
          */
         this.fixed = false;
+        /**
+         * Whether this all tooltips should be forced open
+         */
+        this.forceTooltips = false;
         this.openChange = new core_1.EventEmitter();
     }
     Object.defineProperty(SmdFabSpeedDialComponent.prototype, "open", {
@@ -209,6 +291,9 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
         this._setElementClass(this.direction, true);
         this._setElementClass(this.animationMode, true);
     };
+    SmdFabSpeedDialComponent.prototype.ngOnDestroy = function () {
+        this.forceTooltips = false;
+    };
     /**
      * Toggle the open state of this speed dial
      */
@@ -216,15 +301,17 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
         this.open = !this.open;
     };
     SmdFabSpeedDialComponent.prototype._onClick = function () {
-        if (!this.fixed && this.open) {
+        if (!this.fixed && !this.forceTooltips && this.open) {
             this.open = false;
         }
     };
     SmdFabSpeedDialComponent.prototype.setActionsVisibility = function () {
         if (this.open) {
+            this._childTrigger.show();
             this._childActions.show();
         }
         else {
+            this._childTrigger.hide();
             this._childActions.hide();
         }
     };
@@ -246,11 +333,13 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
     ]; };
     SmdFabSpeedDialComponent.propDecorators = {
         fixed: [{ type: core_1.Input }],
+        forceTooltips: [{ type: core_1.Input }],
         open: [{ type: core_1.HostBinding, args: ['class.smd-opened',] }, { type: core_1.Input }],
         direction: [{ type: core_1.Input }],
         animationMode: [{ type: core_1.Input }],
         openChange: [{ type: core_1.Output }],
         _childActions: [{ type: core_1.ContentChild, args: [SmdFabSpeedDialActions,] }],
+        _childTrigger: [{ type: core_1.ContentChild, args: [SmdFabSpeedDialTrigger,] }],
         _onClick: [{ type: core_1.HostListener, args: ['click',] }]
     };
     return SmdFabSpeedDialComponent;
