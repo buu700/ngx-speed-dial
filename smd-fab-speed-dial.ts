@@ -17,7 +17,8 @@ import {
 	HostListener,
 	Injector
 } from "@angular/core";
-import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatAnchor, MatButton, MatButtonModule} from "@angular/material/button";
+import {combineLatest} from 'rxjs';
 
 const Z_INDEX_ITEM: number = 23;
 
@@ -59,6 +60,7 @@ export class SmdFabSpeedDialTrigger {
 })
 export class SmdFabSpeedDialActions implements AfterContentInit {
 
+	@ContentChildren(MatAnchor) _anchors: QueryList<MatAnchor>;
 	@ContentChildren(MatButton) _buttons: QueryList<MatButton>;
 
 	private readonly _parent: SmdFabSpeedDialComponent;
@@ -68,7 +70,7 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 	}
 
 	ngAfterContentInit(): void {
-		this._buttons.changes.subscribe(() => {
+		combineLatest(this._anchors.changes, this._buttons.changes).subscribe(() => {
 			this.initButtonStates();
 			this._parent.setActionsVisibility();
 		});
@@ -77,15 +79,15 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 	}
 
 	private initButtonStates() {
-		this._buttons.toArray().forEach((button, i) => {
+		[...this._anchors.toArray(), ...this._buttons.toArray()].forEach((button, i) => {
 			this.renderer.setElementClass(button._getHostElement(), 'smd-fab-action-item', true);
 			this.changeElementStyle(button._getHostElement(), 'z-index', '' + (Z_INDEX_ITEM - i));
 		})
 	}
 
 	show() {
-		if (this._buttons) {
-			this._buttons.toArray().forEach((button, i) => {
+		if (this._anchors && this._buttons) {
+			[...this._anchors.toArray(), ...this._buttons.toArray()].forEach((button, i) => {
 				let transitionDelay = 0;
 				let transform;
 				if (this._parent.animationMode == 'scale') {
@@ -103,8 +105,8 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 	}
 
 	hide() {
-		if (this._buttons) {
-			this._buttons.toArray().forEach((button, i) => {
+		if (this._anchors && this._buttons) {
+			[...this._anchors.toArray(), ...this._buttons.toArray()].forEach((button, i) => {
 				let opacity = '1';
 				let transitionDelay = 0;
 				let transform;
