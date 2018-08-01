@@ -8,6 +8,7 @@ import {
 	EventEmitter,
 	ViewEncapsulation,
 	AfterContentInit,
+	OnDestroy,
 	ElementRef,
 	Renderer,
 	ContentChildren,
@@ -254,7 +255,7 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 	`],
 	encapsulation: ViewEncapsulation.None
 })
-export class SmdFabSpeedDialComponent implements AfterContentInit {
+export class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
 	private isInitialized: boolean = false;
 	private _direction: string = 'up';
 	private _open: boolean = false;
@@ -342,6 +343,10 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
 		this.setActionsVisibility();
 		this._setElementClass(this.direction, true);
 		this._setElementClass(this.animationMode, true);
+	}
+
+	ngOnDestroy(): void {
+		this.forceTooltips = false;
 	}
 
 	/**
