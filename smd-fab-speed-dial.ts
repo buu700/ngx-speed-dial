@@ -24,7 +24,7 @@ const Z_INDEX_ITEM: number = 23;
 @Component({
 	selector: 'smd-fab-trigger',
 	template: `
-		<ng-content select="[md-fab], [mat-fab]"></ng-content>
+		<ng-content select="[mat-fab]"></ng-content>
 	`
 })
 export class SmdFabSpeedDialTrigger {
@@ -54,7 +54,7 @@ export class SmdFabSpeedDialTrigger {
 @Component({
 	selector: 'smd-fab-actions',
 	template: `
-		<ng-content select="[md-mini-fab], [mat-mini-fab]"></ng-content>
+		<ng-content select="[mat-mini-fab]"></ng-content>
 	`
 })
 export class SmdFabSpeedDialActions implements AfterContentInit {
