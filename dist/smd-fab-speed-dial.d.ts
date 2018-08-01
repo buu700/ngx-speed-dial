@@ -1,5 +1,5 @@
 import { EventEmitter, AfterContentInit, ElementRef, Renderer, QueryList, Injector } from "@angular/core";
-import { MatButton } from "@angular/material/button";
+import { MatAnchor, MatButton } from "@angular/material/button";
 export declare class SmdFabSpeedDialTrigger {
     /**
      * Whether this trigger should spin (360dg) while opening the speed dial
@@ -11,6 +11,7 @@ export declare class SmdFabSpeedDialTrigger {
 }
 export declare class SmdFabSpeedDialActions implements AfterContentInit {
     private renderer;
+    _anchors: QueryList<MatAnchor>;
     _buttons: QueryList<MatButton>;
     private readonly _parent;
     constructor(injector: Injector, renderer: Renderer);

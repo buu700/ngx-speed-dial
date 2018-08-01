@@ -1,6 +1,7 @@
 /* tslint:disable */
 import { Component, NgModule, Input, Output, EventEmitter, ViewEncapsulation, ElementRef, Renderer, ContentChildren, QueryList, ContentChild, HostBinding, HostListener, Injector } from "@angular/core";
-import { MatButton, MatButtonModule } from "@angular/material/button";
+import { MatAnchor, MatButton, MatButtonModule } from "@angular/material/button";
+import { combineLatest } from 'rxjs';
 var Z_INDEX_ITEM = 23;
 var SmdFabSpeedDialTrigger = /** @class */ (function () {
     function SmdFabSpeedDialTrigger(injector) {
@@ -19,7 +20,7 @@ var SmdFabSpeedDialTrigger = /** @class */ (function () {
     SmdFabSpeedDialTrigger.decorators = [
         { type: Component, args: [{
                     selector: 'smd-fab-trigger',
-                    template: "\n\t\t<ng-content select=\"[md-fab], [mat-fab]\"></ng-content>\n\t"
+                    template: "\n\t\t<ng-content select=\"[mat-fab]\"></ng-content>\n\t"
                 },] },
     ];
     /** @nocollapse */
@@ -40,7 +41,7 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
     }
     SmdFabSpeedDialActions.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._buttons.changes.subscribe(function () {
+        combineLatest(this._anchors.changes, this._buttons.changes).subscribe(function () {
             _this.initButtonStates();
             _this._parent.setActionsVisibility();
         });
@@ -48,15 +49,15 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
     };
     SmdFabSpeedDialActions.prototype.initButtonStates = function () {
         var _this = this;
-        this._buttons.toArray().forEach(function (button, i) {
+        this._anchors.toArray().concat(this._buttons.toArray()).forEach(function (button, i) {
             _this.renderer.setElementClass(button._getHostElement(), 'smd-fab-action-item', true);
             _this.changeElementStyle(button._getHostElement(), 'z-index', '' + (Z_INDEX_ITEM - i));
         });
     };
     SmdFabSpeedDialActions.prototype.show = function () {
         var _this = this;
-        if (this._buttons) {
-            this._buttons.toArray().forEach(function (button, i) {
+        if (this._anchors && this._buttons) {
+            this._anchors.toArray().concat(this._buttons.toArray()).forEach(function (button, i) {
                 var transitionDelay = 0;
                 var transform;
                 if (_this._parent.animationMode == 'scale') {
@@ -75,8 +76,8 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
     };
     SmdFabSpeedDialActions.prototype.hide = function () {
         var _this = this;
-        if (this._buttons) {
-            this._buttons.toArray().forEach(function (button, i) {
+        if (this._anchors && this._buttons) {
+            this._anchors.toArray().concat(this._buttons.toArray()).forEach(function (button, i) {
                 var opacity = '1';
                 var transitionDelay = 0;
                 var transform;
@@ -107,7 +108,7 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
     SmdFabSpeedDialActions.decorators = [
         { type: Component, args: [{
                     selector: 'smd-fab-actions',
-                    template: "\n\t\t<ng-content select=\"[md-mini-fab], [mat-mini-fab]\"></ng-content>\n\t"
+                    template: "\n\t\t<ng-content select=\"[mat-mini-fab]\"></ng-content>\n\t"
                 },] },
     ];
     /** @nocollapse */
@@ -116,6 +117,7 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
         { type: Renderer }
     ]; };
     SmdFabSpeedDialActions.propDecorators = {
+        _anchors: [{ type: ContentChildren, args: [MatAnchor,] }],
         _buttons: [{ type: ContentChildren, args: [MatButton,] }]
     };
     return SmdFabSpeedDialActions;
