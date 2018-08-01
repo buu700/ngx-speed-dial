@@ -34,6 +34,7 @@ Angular 2 FAB Speed Dial based on [AngularJS FAB Speed Dial](https://material.an
 | direction        | up, down, left or right | up       | The direction to open the action buttons        |
 | animationMode    | fling or scale | fling             | The animation to apply when opening the action buttons |
 | fixed            | boolean      | false               | Indicates if this FAB Speed Dial is fixed (user cannot change the open state on click) |
+| forceTooltips    | boolean      | false               | Indicates if button tooltips should be forced to remain open (useful on mobile) |
 
 #### smd-fab-trigger
 

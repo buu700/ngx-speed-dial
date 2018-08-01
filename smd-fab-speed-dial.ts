@@ -23,13 +23,6 @@ import {combineLatest} from 'rxjs';
 
 const Z_INDEX_ITEM: number = 23;
 
-const isMobile: boolean =
-	(<any> self).cordova !== undefined ||
-	/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
-		navigator.userAgent.toLowerCase()
-	)
-;
-
 @Component({
 	selector: 'smd-fab-trigger',
 	template: `
@@ -59,7 +52,7 @@ export class SmdFabSpeedDialTrigger {
 
 	@HostListener('click', ['$event'])
 	_onClick(event: any) {
-		if (!this._parent.fixed) {
+		if (!this._parent.fixed && !this._parent.forceTooltips) {
 			this._parent.toggle();
 			event.stopPropagation();
 		}
@@ -73,7 +66,7 @@ export class SmdFabSpeedDialTrigger {
 	}
 
 	showTooltips() {
-		if (this.isOpen && isMobile && this._tooltips) {
+		if (this._parent.forceTooltips && this.isOpen && this._tooltips) {
 			for (let n = 0 ; n <= 1500 ; n += 150) {
 				setTimeout(
 					() => {
@@ -92,7 +85,7 @@ export class SmdFabSpeedDialTrigger {
 	show() {
 		this.isOpen = true;
 
-		if (isMobile && !this.tooltipEventsSet) {
+		if (this._parent.forceTooltips && !this.tooltipEventsSet) {
 			this.tooltipEventsSet = true;
 
 			this.getAllButtons().forEach((button) => {
@@ -108,7 +101,7 @@ export class SmdFabSpeedDialTrigger {
 	hide() {
 		this.isOpen = false;
 
-		if (isMobile && this._tooltips) {
+		if (this._parent.forceTooltips && this._tooltips) {
 			this._tooltips.forEach((tooltip) => {
 				tooltip.hide();
 			});
@@ -162,7 +155,7 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 	}
 
 	showTooltips() {
-		if (this.isOpen && isMobile && this._tooltips) {
+		if (this._parent.forceTooltips && this.isOpen && this._tooltips) {
 			for (let n = 0 ; n <= 1500 ; n += 150) {
 				setTimeout(
 					() => {
@@ -195,14 +188,16 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 			this.changeElementStyle(button._getHostElement(), 'opacity', '1');
 			this.changeElementStyle(button._getHostElement(), 'transform', transform);
 
-			if (isMobile && !this.tooltipEventsSet) {
+			if (this._parent.forceTooltips && !this.tooltipEventsSet) {
 				(<HTMLElement> button._getHostElement()).addEventListener('mouseleave', () => {
 					this.showTooltips();
 				});
 			}
 		});
 
-		this.tooltipEventsSet = true;
+		if (this._parent.forceTooltips) {
+			this.tooltipEventsSet = true;
+		}
 
 		this.showTooltips();
 	}
@@ -226,7 +221,7 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 			this.changeElementStyle(button._getHostElement(), 'transform', transform);
 		});
 
-		if (isMobile && this._tooltips) {
+		if (this._parent.forceTooltips && this._tooltips) {
 			this._tooltips.forEach((tooltip) => {
 				tooltip.hide();
 			});
@@ -269,6 +264,11 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
 	 * Whether this speed dial is fixed on screen (user cannot change it by clicking)
 	 */
 	@Input() fixed: boolean = false;
+
+	/**
+	 * Whether this all tooltips should be forced open
+	 */
+	@Input() forceTooltips: boolean = false;
 
 	/**
 	 * Whether this speed dial is opened
@@ -353,7 +353,7 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
 
 	@HostListener('click')
 	_onClick() {
-		if (!this.fixed && this.open) {
+		if (!this.fixed && !this.forceTooltips && this.open) {
 			this.open = false;
 		}
 	}
