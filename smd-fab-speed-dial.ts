@@ -18,9 +18,17 @@ import {
 	Injector
 } from "@angular/core";
 import {MatAnchor, MatButton, MatButtonModule} from "@angular/material/button";
+import {MatTooltip} from "@angular/material/tooltip";
 import {combineLatest} from 'rxjs';
 
 const Z_INDEX_ITEM: number = 23;
+
+const isMobile: boolean =
+	(<any> self).cordova !== undefined ||
+	/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+		navigator.userAgent.toLowerCase()
+	)
+;
 
 @Component({
 	selector: 'smd-fab-trigger',
@@ -36,6 +44,13 @@ export class SmdFabSpeedDialTrigger {
 	@HostBinding('class.smd-spin')
 	@Input() spin: boolean = false;
 
+	@ContentChildren(MatAnchor) _anchors: QueryList<MatAnchor>;
+	@ContentChildren(MatButton) _buttons: QueryList<MatButton>;
+	@ContentChildren(MatTooltip) _tooltips: QueryList<MatTooltip>;
+
+	isOpen = false;
+	tooltipEventsSet = false;
+
 	private readonly _parent: SmdFabSpeedDialComponent;
 
 	constructor (injector: Injector) {
@@ -47,6 +62,56 @@ export class SmdFabSpeedDialTrigger {
 		if (!this._parent.fixed) {
 			this._parent.toggle();
 			event.stopPropagation();
+		}
+	}
+
+	getAllButtons () {
+		return [
+			...(this._anchors ? this._anchors.toArray() : []),
+			...(this._buttons ? this._buttons.toArray() : [])
+		];
+	}
+
+	showTooltips() {
+		if (this.isOpen && isMobile && this._tooltips) {
+			for (let n = 0 ; n <= 1500 ; n += 150) {
+				setTimeout(
+					() => {
+						this._tooltips.forEach((tooltip) => {
+							if (this.isOpen && !tooltip._isTooltipVisible()) {
+								tooltip.show();
+							}
+						});
+					},
+					n
+				);
+			}
+		}
+	}
+
+	show() {
+		this.isOpen = true;
+
+		if (isMobile && !this.tooltipEventsSet) {
+			this.tooltipEventsSet = true;
+
+			this.getAllButtons().forEach((button) => {
+				(<HTMLElement> button._getHostElement()).addEventListener('mouseleave', () => {
+					this.showTooltips();
+				});
+			});
+		}
+
+		this.showTooltips();
+	}
+
+	hide() {
+		this.isOpen = false;
+
+		if (isMobile && this._tooltips) {
+			this._tooltips.forEach((tooltip) => {
+				tooltip.hide();
+			});
 		}
 	}
 
@@ -62,11 +127,22 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 
 	@ContentChildren(MatAnchor) _anchors: QueryList<MatAnchor>;
 	@ContentChildren(MatButton) _buttons: QueryList<MatButton>;
+	@ContentChildren(MatTooltip) _tooltips: QueryList<MatTooltip>;
+
+	isOpen = false;
+	tooltipEventsSet = false;
 
 	private readonly _parent: SmdFabSpeedDialComponent;
 
 	constructor (injector: Injector, private renderer: Renderer) {
 		this._parent	= injector.get(SmdFabSpeedDialComponent);
+	}
+
+	getAllButtons () {
+		return [
+			...(this._anchors ? this._anchors.toArray() : []),
+			...(this._buttons ? this._buttons.toArray() : [])
+		];
 	}
 
 	ngAfterContentInit(): void {
@@ -79,48 +155,81 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 	}
 
 	private initButtonStates() {
-		[...this._anchors.toArray(), ...this._buttons.toArray()].forEach((button, i) => {
+		this.getAllButtons().forEach((button, i) => {
 			this.renderer.setElementClass(button._getHostElement(), 'smd-fab-action-item', true);
 			this.changeElementStyle(button._getHostElement(), 'z-index', '' + (Z_INDEX_ITEM - i));
 		})
 	}
 
-	show() {
-		if (this._anchors && this._buttons) {
-			[...this._anchors.toArray(), ...this._buttons.toArray()].forEach((button, i) => {
-				let transitionDelay = 0;
-				let transform;
-				if (this._parent.animationMode == 'scale') {
-					// Incremental transition delay of 65ms for each action button
-					transitionDelay = 3 + (65 * i);
-					transform = 'scale(1)';
-				} else {
-					transform = this.getTranslateFunction('0');
-				}
-				this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
-				this.changeElementStyle(button._getHostElement(), 'opacity', '1');
-				this.changeElementStyle(button._getHostElement(), 'transform', transform);
-			})
+	showTooltips() {
+		if (this.isOpen && isMobile && this._tooltips) {
+			for (let n = 0 ; n <= 1500 ; n += 150) {
+				setTimeout(
+					() => {
+						this._tooltips.forEach((tooltip) => {
+							if (this.isOpen && !tooltip._isTooltipVisible()) {
+								tooltip.show();
+							}
+						});
+					},
+					n
+				);
+			}
 		}
 	}
 
+	show() {
+		this.isOpen = true;
+
+		this.getAllButtons().forEach((button, i) => {
+			let transitionDelay = 0;
+			let transform;
+			if (this._parent.animationMode == 'scale') {
+				// Incremental transition delay of 65ms for each action button
+				transitionDelay = 3 + (65 * i);
+				transform = 'scale(1)';
+			} else {
+				transform = this.getTranslateFunction('0');
+			}
+			this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
+			this.changeElementStyle(button._getHostElement(), 'opacity', '1');
+			this.changeElementStyle(button._getHostElement(), 'transform', transform);
+
+			if (isMobile && !this.tooltipEventsSet) {
+				(<HTMLElement> button._getHostElement()).addEventListener('mouseleave', () => {
+					this.showTooltips();
+				});
+			}
+		});
+
+		this.tooltipEventsSet = true;
+
+		this.showTooltips();
+	}
+
 	hide() {
-		if (this._anchors && this._buttons) {
-			[...this._anchors.toArray(), ...this._buttons.toArray()].forEach((button, i) => {
-				let opacity = '1';
-				let transitionDelay = 0;
-				let transform;
-				if (this._parent.animationMode == 'scale') {
-					transitionDelay = 3 - (65 * i);
-					transform = 'scale(0)';
-					opacity = '0';
-				} else {
-					transform = this.getTranslateFunction((55 * (i + 1) - (i * 5)) + 'px');
-				}
-				this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
-				this.changeElementStyle(button._getHostElement(), 'opacity', opacity);
-				this.changeElementStyle(button._getHostElement(), 'transform', transform);
-			})
+		this.isOpen = false;
+
+		this.getAllButtons().forEach((button, i) => {
+			let opacity = '1';
+			let transitionDelay = 0;
+			let transform;
+			if (this._parent.animationMode == 'scale') {
+				transitionDelay = 3 - (65 * i);
+				transform = 'scale(0)';
+				opacity = '0';
+			} else {
+				transform = this.getTranslateFunction((55 * (i + 1) - (i * 5)) + 'px');
+			}
+			this.changeElementStyle(button._getHostElement(), 'transition-delay', transitionDelay + 'ms');
+			this.changeElementStyle(button._getHostElement(), 'opacity', opacity);
+			this.changeElementStyle(button._getHostElement(), 'transform', transform);
+		});
+
+		if (isMobile && this._tooltips) {
+			this._tooltips.forEach((tooltip) => {
+				tooltip.hide();
+			});
 		}
 	}
 
@@ -224,6 +333,7 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
 	@Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 	@ContentChild(SmdFabSpeedDialActions) _childActions: SmdFabSpeedDialActions;
+	@ContentChild(SmdFabSpeedDialTrigger) _childTrigger: SmdFabSpeedDialTrigger;
 
 	constructor(private elementRef: ElementRef, private renderer: Renderer) {}
 
@@ -250,8 +360,10 @@ export class SmdFabSpeedDialComponent implements AfterContentInit {
 
 	setActionsVisibility() {
 		if (this.open) {
+			this._childTrigger.show();
 			this._childActions.show();
 		} else {
+			this._childTrigger.hide();
 			this._childActions.hide();
 		}
 	}
