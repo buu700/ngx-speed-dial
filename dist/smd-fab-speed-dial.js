@@ -30,7 +30,9 @@ var SmdFabSpeedDialTrigger = /** @class */ (function () {
                 tooltip.hide();
                 for (var n = i * 65 + 3; n <= 1500; n += 150) {
                     setTimeout(function () {
-                        if (_this.isOpen && !tooltip._isTooltipVisible()) {
+                        if (_this._parent.forceTooltips &&
+                            _this.isOpen &&
+                            !tooltip._isTooltipVisible()) {
                             tooltip.show();
                         }
                     }, n);
@@ -111,7 +113,9 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
                 tooltip.hide();
                 for (var n = i * 65 + 3; n <= 1500; n += 150) {
                     setTimeout(function () {
-                        if (_this.isOpen && !tooltip._isTooltipVisible()) {
+                        if (_this._parent.forceTooltips &&
+                            _this.isOpen &&
+                            !tooltip._isTooltipVisible()) {
                             tooltip.show();
                         }
                     }, n);
