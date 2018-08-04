@@ -74,7 +74,11 @@ export class SmdFabSpeedDialTrigger {
 				for (let n = i * 65 + 3 ; n <= 1500 ; n += 150) {
 					setTimeout(
 						() => {
-							if (this.isOpen && !tooltip._isTooltipVisible()) {
+							if (
+								this._parent.forceTooltips &&
+								this.isOpen &&
+								!tooltip._isTooltipVisible()
+							) {
 								tooltip.show();
 							}
 						},
@@ -165,7 +169,11 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 				for (let n = i * 65 + 3 ; n <= 1500 ; n += 150) {
 					setTimeout(
 						() => {
-							if (this.isOpen && !tooltip._isTooltipVisible()) {
+							if (
+								this._parent.forceTooltips &&
+								this.isOpen &&
+								!tooltip._isTooltipVisible()
+							) {
 								tooltip.show();
 							}
 						},

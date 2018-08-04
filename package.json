@@ -1,7 +1,7 @@
 {
 	"name": "angular-speed-dial",
 	"description": "FAB Speed Dial component for Angular Material",
-	"version": "6.2.0",
+	"version": "6.2.1",
 	"main": "./dist/smd-fab-speed-dial.es5.js",
 	"module": "./dist/smd-fab-speed-dial.js",
 	"jsnext:main": "./dist/smd-fab-speed-dial.js",
