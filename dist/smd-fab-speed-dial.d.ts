@@ -1,4 +1,4 @@
-import { EventEmitter, AfterContentInit, OnDestroy, ElementRef, Renderer, QueryList, Injector } from "@angular/core";
+import { EventEmitter, AfterContentInit, OnDestroy, ElementRef, Renderer2, QueryList, Injector } from "@angular/core";
 import { MatAnchor, MatButton } from "@angular/material/button";
 import { MatTooltip } from "@angular/material/tooltip";
 export declare class SmdFabSpeedDialTrigger {
@@ -27,15 +27,15 @@ export declare class SmdFabSpeedDialActions implements AfterContentInit {
     isOpen: boolean;
     tooltipEventsSet: boolean;
     private readonly _parent;
-    constructor(injector: Injector, renderer: Renderer);
+    constructor(injector: Injector, renderer: Renderer2);
     getAllButtons(): MatButton[];
     ngAfterContentInit(): void;
-    private initButtonStates();
+    private initButtonStates;
     showTooltips(): void;
     show(): void;
     hide(): void;
-    private getTranslateFunction(value);
-    private changeElementStyle(elem, style, value);
+    private getTranslateFunction;
+    private changeElementStyle;
 }
 export declare class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
     private elementRef;
@@ -67,7 +67,7 @@ export declare class SmdFabSpeedDialComponent implements AfterContentInit, OnDes
     openChange: EventEmitter<boolean>;
     _childActions: SmdFabSpeedDialActions;
     _childTrigger: SmdFabSpeedDialTrigger;
-    constructor(elementRef: ElementRef, renderer: Renderer);
+    constructor(elementRef: ElementRef, renderer: Renderer2);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**
@@ -76,7 +76,7 @@ export declare class SmdFabSpeedDialComponent implements AfterContentInit, OnDes
     toggle(): void;
     _onClick(): void;
     setActionsVisibility(): void;
-    private _setElementClass(elemClass, isAdd);
+    private _setElementClass;
 }
 /** Speed dial module. */
 export declare class SmdFabSpeedDialModule {
