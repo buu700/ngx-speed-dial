@@ -12,6 +12,7 @@
 		"url": "https://github.com/buu700/angular-speed-dial.git"
 	},
 	"peerDependencies": {
+		"@angular/animations": "next",
 		"@angular/cdk": "next",
 		"@angular/common": "next",
 		"@angular/core": "next",
@@ -20,8 +21,15 @@
 		"@angular/platform-browser": "next"
 	},
 	"devDependencies": {
+		"@angular/animations": "next",
+		"@angular/cdk": "next",
+		"@angular/common": "next",
 		"@angular/compiler": "next",
 		"@angular/compiler-cli": "next",
+		"@angular/core": "next",
+		"@angular/forms": "next",
+		"@angular/material": "next",
+		"@angular/platform-browser": "next",
 		"@types/node": "^9",
 		"@types/webpack": "^4",
 		"rxjs": "^6",
