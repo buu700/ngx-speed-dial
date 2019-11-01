@@ -10,7 +10,7 @@ import {
 	AfterContentInit,
 	OnDestroy,
 	ElementRef,
-	Renderer,
+	Renderer2,
 	ContentChildren,
 	QueryList,
 	ContentChild,
@@ -134,7 +134,7 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 
 	private readonly _parent: SmdFabSpeedDialComponent;
 
-	constructor (injector: Injector, private renderer: Renderer) {
+	constructor (injector: Injector, private renderer: Renderer2) {
 		this._parent	= injector.get(SmdFabSpeedDialComponent);
 	}
 
@@ -156,7 +156,7 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 
 	private initButtonStates() {
 		this.getAllButtons().forEach((button, i) => {
-			this.renderer.setElementClass(button._getHostElement(), 'smd-fab-action-item', true);
+			this.renderer.addClass(button._getHostElement(), 'smd-fab-action-item');
 			this.changeElementStyle(button._getHostElement(), 'z-index', '' + (Z_INDEX_ITEM - i));
 		})
 	}
@@ -250,7 +250,12 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 
 	private changeElementStyle(elem: any, style: string, value: string) {
 		// FIXME - Find a way to create a "wrapper" around the action button(s) provided by the user, so we don't change it's style tag
-		this.renderer.setElementStyle(elem, style, value);
+		if (value) {
+			this.renderer.setStyle(elem, style, value);
+		}
+		else {
+			this.renderer.removeStyle(elem, style);
+		}
 	}
 }
 
@@ -348,7 +353,7 @@ export class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
 	@ContentChild(SmdFabSpeedDialActions) _childActions: SmdFabSpeedDialActions;
 	@ContentChild(SmdFabSpeedDialTrigger) _childTrigger: SmdFabSpeedDialTrigger;
 
-	constructor(private elementRef: ElementRef, private renderer: Renderer) {}
+	constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
 	ngAfterContentInit(): void {
 		this.isInitialized = true;
@@ -386,7 +391,12 @@ export class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
 	}
 
 	private _setElementClass(elemClass:string , isAdd:boolean) {
-		this.renderer.setElementClass(this.elementRef.nativeElement, `smd-${elemClass}`, isAdd);
+		if (isAdd) {
+			this.renderer.addClass(this.elementRef.nativeElement, `smd-${elemClass}`);
+		}
+		else {
+			this.renderer.removeClass(this.elementRef.nativeElement, `smd-${elemClass}`);
+		}
 	}
 }
 
