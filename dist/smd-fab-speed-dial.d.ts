@@ -55,15 +55,18 @@ export declare class SmdFabSpeedDialComponent implements AfterContentInit, OnDes
     /**
      * Whether this speed dial is opened
      */
-    open: boolean;
+    get open(): boolean;
+    set open(open: boolean);
     /**
      * The direction of the speed dial. Can be 'up', 'down', 'left' or 'right'
      */
-    direction: string;
+    get direction(): string;
+    set direction(direction: string);
     /**
      * The animation mode to open the speed dial. Can be 'fling' or 'scale'
      */
-    animationMode: string;
+    get animationMode(): string;
+    set animationMode(animationMode: string);
     openChange: EventEmitter<boolean>;
     _childActions: SmdFabSpeedDialActions;
     _childTrigger: SmdFabSpeedDialTrigger;
