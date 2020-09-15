@@ -1,13 +1,4 @@
 /* tslint:disable */
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -77,36 +68,22 @@ var SmdFabSpeedDialTrigger = /** @class */ (function () {
             });
         }
     };
-    __decorate([
-        HostBinding('class.smd-spin'),
-        Input(),
-        __metadata("design:type", Boolean)
-    ], SmdFabSpeedDialTrigger.prototype, "spin", void 0);
-    __decorate([
-        ContentChildren(MatAnchor),
-        __metadata("design:type", QueryList)
-    ], SmdFabSpeedDialTrigger.prototype, "_anchors", void 0);
-    __decorate([
-        ContentChildren(MatButton),
-        __metadata("design:type", QueryList)
-    ], SmdFabSpeedDialTrigger.prototype, "_buttons", void 0);
-    __decorate([
-        ContentChildren(MatTooltip),
-        __metadata("design:type", QueryList)
-    ], SmdFabSpeedDialTrigger.prototype, "_tooltips", void 0);
-    __decorate([
-        HostListener('click', ['$event']),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", void 0)
-    ], SmdFabSpeedDialTrigger.prototype, "_onClick", null);
-    SmdFabSpeedDialTrigger = __decorate([
-        Component({
-            selector: 'smd-fab-trigger',
-            template: "\n\t\t<ng-content select=\"[mat-fab]\"></ng-content>\n\t"
-        }),
-        __metadata("design:paramtypes", [Injector])
-    ], SmdFabSpeedDialTrigger);
+    SmdFabSpeedDialTrigger.decorators = [
+        { type: Component, args: [{
+                    selector: 'smd-fab-trigger',
+                    template: "\n\t\t<ng-content select=\"[mat-fab]\"></ng-content>\n\t"
+                },] }
+    ];
+    SmdFabSpeedDialTrigger.ctorParameters = function () { return [
+        { type: Injector }
+    ]; };
+    SmdFabSpeedDialTrigger.propDecorators = {
+        spin: [{ type: HostBinding, args: ['class.smd-spin',] }, { type: Input }],
+        _anchors: [{ type: ContentChildren, args: [MatAnchor,] }],
+        _buttons: [{ type: ContentChildren, args: [MatButton,] }],
+        _tooltips: [{ type: ContentChildren, args: [MatTooltip,] }],
+        _onClick: [{ type: HostListener, args: ['click', ['$event'],] }]
+    };
     return SmdFabSpeedDialTrigger;
 }());
 export { SmdFabSpeedDialTrigger };
@@ -220,25 +197,21 @@ var SmdFabSpeedDialActions = /** @class */ (function () {
             this.renderer.removeStyle(elem, style);
         }
     };
-    __decorate([
-        ContentChildren(MatAnchor),
-        __metadata("design:type", QueryList)
-    ], SmdFabSpeedDialActions.prototype, "_anchors", void 0);
-    __decorate([
-        ContentChildren(MatButton),
-        __metadata("design:type", QueryList)
-    ], SmdFabSpeedDialActions.prototype, "_buttons", void 0);
-    __decorate([
-        ContentChildren(MatTooltip),
-        __metadata("design:type", QueryList)
-    ], SmdFabSpeedDialActions.prototype, "_tooltips", void 0);
-    SmdFabSpeedDialActions = __decorate([
-        Component({
-            selector: 'smd-fab-actions',
-            template: "\n\t\t<ng-content select=\"[mat-mini-fab]\"></ng-content>\n\t"
-        }),
-        __metadata("design:paramtypes", [Injector, Renderer2])
-    ], SmdFabSpeedDialActions);
+    SmdFabSpeedDialActions.decorators = [
+        { type: Component, args: [{
+                    selector: 'smd-fab-actions',
+                    template: "\n\t\t<ng-content select=\"[mat-mini-fab]\"></ng-content>\n\t"
+                },] }
+    ];
+    SmdFabSpeedDialActions.ctorParameters = function () { return [
+        { type: Injector },
+        { type: Renderer2 }
+    ]; };
+    SmdFabSpeedDialActions.propDecorators = {
+        _anchors: [{ type: ContentChildren, args: [MatAnchor,] }],
+        _buttons: [{ type: ContentChildren, args: [MatButton,] }],
+        _tooltips: [{ type: ContentChildren, args: [MatTooltip,] }]
+    };
     return SmdFabSpeedDialActions;
 }());
 export { SmdFabSpeedDialActions };
@@ -277,7 +250,7 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
                 }
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(SmdFabSpeedDialComponent.prototype, "direction", {
@@ -298,7 +271,7 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
                 }
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(SmdFabSpeedDialComponent.prototype, "animationMode", {
@@ -321,7 +294,7 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
                 }
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     SmdFabSpeedDialComponent.prototype.ngAfterContentInit = function () {
@@ -362,57 +335,29 @@ var SmdFabSpeedDialComponent = /** @class */ (function () {
             this.renderer.removeClass(this.elementRef.nativeElement, "smd-" + elemClass);
         }
     };
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean)
-    ], SmdFabSpeedDialComponent.prototype, "fixed", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Boolean)
-    ], SmdFabSpeedDialComponent.prototype, "forceTooltips", void 0);
-    __decorate([
-        HostBinding('class.smd-opened'),
-        Input(),
-        __metadata("design:type", Boolean),
-        __metadata("design:paramtypes", [Boolean])
-    ], SmdFabSpeedDialComponent.prototype, "open", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], SmdFabSpeedDialComponent.prototype, "direction", null);
-    __decorate([
-        Input(),
-        __metadata("design:type", String),
-        __metadata("design:paramtypes", [String])
-    ], SmdFabSpeedDialComponent.prototype, "animationMode", null);
-    __decorate([
-        Output(),
-        __metadata("design:type", EventEmitter)
-    ], SmdFabSpeedDialComponent.prototype, "openChange", void 0);
-    __decorate([
-        ContentChild(SmdFabSpeedDialActions),
-        __metadata("design:type", SmdFabSpeedDialActions)
-    ], SmdFabSpeedDialComponent.prototype, "_childActions", void 0);
-    __decorate([
-        ContentChild(SmdFabSpeedDialTrigger),
-        __metadata("design:type", SmdFabSpeedDialTrigger)
-    ], SmdFabSpeedDialComponent.prototype, "_childTrigger", void 0);
-    __decorate([
-        HostListener('click'),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], SmdFabSpeedDialComponent.prototype, "_onClick", null);
-    SmdFabSpeedDialComponent = __decorate([
-        Component({
-            selector: 'smd-fab-speed-dial',
-            template: "\n\t\t<div class=\"smd-fab-speed-dial-container\">\n\t\t\t<ng-content select=\"smd-fab-trigger\"></ng-content>\n\t\t\t<ng-content select=\"smd-fab-actions\"></ng-content>\n\t\t</div>\n\t",
-            styles: ["\n\t\tsmd-fab-speed-dial{display:inline-block}smd-fab-speed-dial.smd-opened .smd-fab-speed-dial-container smd-fab-trigger.smd-spin{-webkit-transform:rotate(360deg);transform:rotate(360deg)}smd-fab-speed-dial .smd-fab-speed-dial-container{position:relative;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;z-index:20}smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-trigger{pointer-events:auto;z-index:24}smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-trigger.smd-spin{-webkit-transition:all .6s cubic-bezier(.4,0,.2,1);transition:all .6s cubic-bezier(.4,0,.2,1)}smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-actions{display:-webkit-box;display:-webkit-flex;display:flex;height:auto}smd-fab-speed-dial.smd-fling .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{display:block;opacity:1;-webkit-transition:all .3s cubic-bezier(.55,0,.55,.2);transition:all .3s cubic-bezier(.55,0,.55,.2)}smd-fab-speed-dial.smd-scale .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{-webkit-transform:scale(0);transform:scale(0);-webkit-transition:all .3s cubic-bezier(.55,0,.55,.2);transition:all .3s cubic-bezier(.55,0,.55,.2);-webkit-transition-duration:.14286s;transition-duration:.14286s}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column;-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-top:10px}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-webkit-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-bottom:10px}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;flex-direction:row}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row-reverse;flex-direction:row-reverse;-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-right:10px}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;flex-direction:row}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;flex-direction:row;-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-left:10px}\n\t"],
-            encapsulation: ViewEncapsulation.None
-        }),
-        __metadata("design:paramtypes", [ElementRef, Renderer2])
-    ], SmdFabSpeedDialComponent);
+    SmdFabSpeedDialComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'smd-fab-speed-dial',
+                    template: "\n\t\t<div class=\"smd-fab-speed-dial-container\">\n\t\t\t<ng-content select=\"smd-fab-trigger\"></ng-content>\n\t\t\t<ng-content select=\"smd-fab-actions\"></ng-content>\n\t\t</div>\n\t",
+                    styles: ["\n\t\tsmd-fab-speed-dial{display:inline-block}smd-fab-speed-dial.smd-opened .smd-fab-speed-dial-container smd-fab-trigger.smd-spin{-webkit-transform:rotate(360deg);transform:rotate(360deg)}smd-fab-speed-dial .smd-fab-speed-dial-container{position:relative;display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-align:center;-webkit-align-items:center;align-items:center;z-index:20}smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-trigger{pointer-events:auto;z-index:24}smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-trigger.smd-spin{-webkit-transition:all .6s cubic-bezier(.4,0,.2,1);transition:all .6s cubic-bezier(.4,0,.2,1)}smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-actions{display:-webkit-box;display:-webkit-flex;display:flex;height:auto}smd-fab-speed-dial.smd-fling .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{display:block;opacity:1;-webkit-transition:all .3s cubic-bezier(.55,0,.55,.2);transition:all .3s cubic-bezier(.55,0,.55,.2)}smd-fab-speed-dial.smd-scale .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{-webkit-transform:scale(0);transform:scale(0);-webkit-transition:all .3s cubic-bezier(.55,0,.55,.2);transition:all .3s cubic-bezier(.55,0,.55,.2);-webkit-transition-duration:.14286s;transition-duration:.14286s}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column;-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-top:10px}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;flex-direction:column}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-webkit-flex-direction:column-reverse;flex-direction:column-reverse;-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-bottom:10px}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;flex-direction:row}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row-reverse;flex-direction:row-reverse;-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-right:10px}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;flex-direction:row}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container smd-fab-trigger{-webkit-box-ordinal-group:2;-webkit-order:1;order:1}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container smd-fab-actions{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;flex-direction:row;-webkit-box-ordinal-group:3;-webkit-order:2;order:2}smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container smd-fab-actions .smd-fab-action-item{margin-left:10px}\n\t"],
+                    encapsulation: ViewEncapsulation.None
+                },] }
+    ];
+    SmdFabSpeedDialComponent.ctorParameters = function () { return [
+        { type: ElementRef },
+        { type: Renderer2 }
+    ]; };
+    SmdFabSpeedDialComponent.propDecorators = {
+        fixed: [{ type: Input }],
+        forceTooltips: [{ type: Input }],
+        open: [{ type: HostBinding, args: ['class.smd-opened',] }, { type: Input }],
+        direction: [{ type: Input }],
+        animationMode: [{ type: Input }],
+        openChange: [{ type: Output }],
+        _childActions: [{ type: ContentChild, args: [SmdFabSpeedDialActions,] }],
+        _childTrigger: [{ type: ContentChild, args: [SmdFabSpeedDialTrigger,] }],
+        _onClick: [{ type: HostListener, args: ['click',] }]
+    };
     return SmdFabSpeedDialComponent;
 }());
 export { SmdFabSpeedDialComponent };
@@ -420,23 +365,23 @@ export { SmdFabSpeedDialComponent };
 var SmdFabSpeedDialModule = /** @class */ (function () {
     function SmdFabSpeedDialModule() {
     }
-    SmdFabSpeedDialModule = __decorate([
-        NgModule({
-            declarations: [
-                SmdFabSpeedDialActions,
-                SmdFabSpeedDialComponent,
-                SmdFabSpeedDialTrigger
-            ],
-            exports: [
-                SmdFabSpeedDialActions,
-                SmdFabSpeedDialComponent,
-                SmdFabSpeedDialTrigger
-            ],
-            imports: [
-                MatButtonModule
-            ]
-        })
-    ], SmdFabSpeedDialModule);
+    SmdFabSpeedDialModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        SmdFabSpeedDialActions,
+                        SmdFabSpeedDialComponent,
+                        SmdFabSpeedDialTrigger
+                    ],
+                    exports: [
+                        SmdFabSpeedDialActions,
+                        SmdFabSpeedDialComponent,
+                        SmdFabSpeedDialTrigger
+                    ],
+                    imports: [
+                        MatButtonModule
+                    ]
+                },] }
+    ];
     return SmdFabSpeedDialModule;
 }());
 export { SmdFabSpeedDialModule };
