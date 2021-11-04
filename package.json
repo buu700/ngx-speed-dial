@@ -38,6 +38,6 @@
 		"zone.js": "*"
 	},
 	"scripts": {
-		"build": "rm -rf dist 2> /dev/null ; npx ngc -p tsconfig.es5.json ; mv dist/smd-fab-speed-dial.js dist/smd-fab-speed-dial.es5.js ; mv dist/smd-fab-speed-dial.js.map dist/smd-fab-speed-dial.es5.js.map ; rm dist/smd-fab-speed-dial.d.ts dist/smd-fab-speed-dial.metadata.json ; npx ngc -p . ; chmod -R 777 dist ; git add dist"
+		"build": "rm -rf dist 2> /dev/null && npx ngc -p tsconfig.es5.json && mv dist/smd-fab-speed-dial.js dist/smd-fab-speed-dial.es5.js && mv dist/smd-fab-speed-dial.js.map dist/smd-fab-speed-dial.es5.js.map && rm dist/smd-fab-speed-dial.d.ts dist/smd-fab-speed-dial.metadata.json && npx ngc -p . && chmod -R 777 dist && git add dist"
 	}
 }
