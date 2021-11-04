@@ -3,23 +3,23 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"angular-speed-dial": {
+		"ngx-speed-dial": {
 			"projectType": "library",
-			"root": "projects/angular-speed-dial",
-			"sourceRoot": "projects/angular-speed-dial/src",
+			"root": "projects/ngx-speed-dial",
+			"sourceRoot": "projects/ngx-speed-dial/src",
 			"prefix": "lib",
 			"architect": {
 				"build": {
 					"builder": "@angular-devkit/build-angular:ng-packagr",
 					"options": {
-						"project": "projects/angular-speed-dial/ng-package.json"
+						"project": "projects/ngx-speed-dial/ng-package.json"
 					},
 					"configurations": {
 						"production": {
-							"tsConfig": "projects/angular-speed-dial/tsconfig.lib.prod.json"
+							"tsConfig": "projects/ngx-speed-dial/tsconfig.lib.prod.json"
 						},
 						"development": {
-							"tsConfig": "projects/angular-speed-dial/tsconfig.lib.json"
+							"tsConfig": "projects/ngx-speed-dial/tsconfig.lib.json"
 						}
 					},
 					"defaultConfiguration": "production"
@@ -27,13 +27,13 @@
 				"test": {
 					"builder": "@angular-devkit/build-angular:karma",
 					"options": {
-						"main": "projects/angular-speed-dial/src/test.ts",
-						"tsConfig": "projects/angular-speed-dial/tsconfig.spec.json",
-						"karmaConfig": "projects/angular-speed-dial/karma.conf.js"
+						"main": "projects/ngx-speed-dial/src/test.ts",
+						"tsConfig": "projects/ngx-speed-dial/tsconfig.spec.json",
+						"karmaConfig": "projects/ngx-speed-dial/karma.conf.js"
 					}
 				}
 			}
 		}
 	},
-	"defaultProject": "angular-speed-dial"
+	"defaultProject": "ngx-speed-dial"
 }

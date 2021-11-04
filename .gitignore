@@ -2,8 +2,8 @@
 
 # Custom
 package-lock.json
-/projects/angular-speed-dial/package.json
-/projects/angular-speed-dial/README.md
+/projects/ngx-speed-dial/package.json
+/projects/ngx-speed-dial/README.md
 
 # compiled output
 /dist

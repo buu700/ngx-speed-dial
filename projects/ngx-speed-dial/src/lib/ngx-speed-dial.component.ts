@@ -24,14 +24,14 @@ import {combineLatest} from 'rxjs';
 const Z_INDEX_ITEM: number = 23;
 
 @Component({
-	selector: 'smd-fab-trigger',
+	selector: 'ngx-speed-dial-trigger',
 	template: ` <ng-content select="[mat-fab]"></ng-content> `
 })
-export class SmdFabSpeedDialTrigger {
+export class NgxSpeedDialTriggerComponent {
 	/**
 	 * Whether this trigger should spin (360dg) while opening the speed dial
 	 */
-	@HostBinding('class.smd-spin')
+	@HostBinding('class.ngx-speed-dial-spin')
 	@Input()
 	spin: boolean = false;
 
@@ -42,10 +42,10 @@ export class SmdFabSpeedDialTrigger {
 	isOpen = false;
 	tooltipEventsSet = false;
 
-	private readonly _parent: SmdFabSpeedDialComponent;
+	private readonly _parent: NgxSpeedDialComponent;
 
 	constructor (injector: Injector) {
-		this._parent = injector.get(SmdFabSpeedDialComponent);
+		this._parent = injector.get(NgxSpeedDialComponent);
 	}
 
 	@HostListener('click', ['$event'])
@@ -114,10 +114,10 @@ export class SmdFabSpeedDialTrigger {
 }
 
 @Component({
-	selector: 'smd-fab-actions',
+	selector: 'ngx-speed-dial-actions',
 	template: ` <ng-content select="[mat-mini-fab]"></ng-content> `
 })
-export class SmdFabSpeedDialActions implements AfterContentInit {
+export class NgxSpeedDialActionsComponent implements AfterContentInit {
 	@ContentChildren(MatAnchor) _anchors?: QueryList<MatAnchor>;
 	@ContentChildren(MatButton) _buttons?: QueryList<MatButton>;
 	@ContentChildren(MatTooltip) _tooltips?: QueryList<MatTooltip>;
@@ -125,10 +125,10 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 	isOpen = false;
 	tooltipEventsSet = false;
 
-	private readonly _parent: SmdFabSpeedDialComponent;
+	private readonly _parent: NgxSpeedDialComponent;
 
 	constructor (injector: Injector, private renderer: Renderer2) {
-		this._parent = injector.get(SmdFabSpeedDialComponent);
+		this._parent = injector.get(NgxSpeedDialComponent);
 	}
 
 	getAllButtons ()  {
@@ -155,10 +155,7 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 
 	private initButtonStates ()  {
 		this.getAllButtons().forEach((button, i) => {
-			this.renderer.addClass(
-				button._getHostElement(),
-				'smd-fab-action-item'
-			);
+			this.renderer.addClass(button._getHostElement(), 'ngx-action-item');
 			this.changeElementStyle(
 				button._getHostElement(),
 				'z-index',
@@ -291,25 +288,25 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 }
 
 @Component({
-	selector: 'smd-fab-speed-dial',
+	selector: 'ngx-speed-dial',
 	template: `
-		<div class="smd-fab-speed-dial-container">
-			<ng-content select="smd-fab-trigger"></ng-content>
-			<ng-content select="smd-fab-actions"></ng-content>
+		<div class="ngx-speed-dial-container">
+			<ng-content select="ngx-speed-dial-trigger"></ng-content>
+			<ng-content select="ngx-speed-dial-actions"></ng-content>
 		</div>
 	`,
 	styles: [
 		`
-			smd-fab-speed-dial {
+			ngx-speed-dial {
 				display: inline-block;
 			}
-			smd-fab-speed-dial.smd-opened
-				.smd-fab-speed-dial-container
-				smd-fab-trigger.smd-spin {
+			ngx-speed-dial.ngx-speed-dial-opened
+				.ngx-speed-dial-container
+				ngx-speed-dial-trigger.ngx-speed-dial-spin {
 				-webkit-transform: rotate(360deg);
 				transform: rotate(360deg);
 			}
-			smd-fab-speed-dial .smd-fab-speed-dial-container {
+			ngx-speed-dial .ngx-speed-dial-container {
 				position: relative;
 				display: -webkit-box;
 				display: -webkit-flex;
@@ -319,35 +316,35 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 				align-items: center;
 				z-index: 20;
 			}
-			smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-trigger {
+			ngx-speed-dial .ngx-speed-dial-container ngx-speed-dial-trigger {
 				pointer-events: auto;
 				z-index: 24;
 			}
-			smd-fab-speed-dial
-				.smd-fab-speed-dial-container
-				smd-fab-trigger.smd-spin {
+			ngx-speed-dial
+				.ngx-speed-dial-container
+				ngx-speed-dial-trigger.ngx-speed-dial-spin {
 				-webkit-transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 				transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 			}
-			smd-fab-speed-dial .smd-fab-speed-dial-container smd-fab-actions {
+			ngx-speed-dial .ngx-speed-dial-container ngx-speed-dial-actions {
 				display: -webkit-box;
 				display: -webkit-flex;
 				display: flex;
 				height: auto;
 			}
-			smd-fab-speed-dial.smd-fling
-				.smd-fab-speed-dial-container
-				smd-fab-actions
-				.smd-fab-action-item {
+			ngx-speed-dial.ngx-speed-dial-fling
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions
+				.ngx-action-item {
 				display: block;
 				opacity: 1;
 				-webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
 				transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
 			}
-			smd-fab-speed-dial.smd-scale
-				.smd-fab-speed-dial-container
-				smd-fab-actions
-				.smd-fab-action-item {
+			ngx-speed-dial.ngx-speed-dial-scale
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions
+				.ngx-action-item {
 				-webkit-transform: scale(0);
 				transform: scale(0);
 				-webkit-transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
@@ -355,22 +352,22 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 				-webkit-transition-duration: 0.14286s;
 				transition-duration: 0.14286s;
 			}
-			smd-fab-speed-dial.smd-down .smd-fab-speed-dial-container {
+			ngx-speed-dial.ngx-speed-dial-down .ngx-speed-dial-container {
 				-webkit-box-orient: vertical;
 				-webkit-box-direction: normal;
 				-webkit-flex-direction: column;
 				flex-direction: column;
 			}
-			smd-fab-speed-dial.smd-down
-				.smd-fab-speed-dial-container
-				smd-fab-trigger {
+			ngx-speed-dial.ngx-speed-dial-down
+				.ngx-speed-dial-container
+				ngx-speed-dial-trigger {
 				-webkit-box-ordinal-group: 2;
 				-webkit-order: 1;
 				order: 1;
 			}
-			smd-fab-speed-dial.smd-down
-				.smd-fab-speed-dial-container
-				smd-fab-actions {
+			ngx-speed-dial.ngx-speed-dial-down
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions {
 				-webkit-box-orient: vertical;
 				-webkit-box-direction: normal;
 				-webkit-flex-direction: column;
@@ -379,28 +376,28 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 				-webkit-order: 2;
 				order: 2;
 			}
-			smd-fab-speed-dial.smd-down
-				.smd-fab-speed-dial-container
-				smd-fab-actions
-				.smd-fab-action-item {
+			ngx-speed-dial.ngx-speed-dial-down
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions
+				.ngx-action-item {
 				margin-top: 10px;
 			}
-			smd-fab-speed-dial.smd-up .smd-fab-speed-dial-container {
+			ngx-speed-dial.ngx-speed-dial-up .ngx-speed-dial-container {
 				-webkit-box-orient: vertical;
 				-webkit-box-direction: normal;
 				-webkit-flex-direction: column;
 				flex-direction: column;
 			}
-			smd-fab-speed-dial.smd-up
-				.smd-fab-speed-dial-container
-				smd-fab-trigger {
+			ngx-speed-dial.ngx-speed-dial-up
+				.ngx-speed-dial-container
+				ngx-speed-dial-trigger {
 				-webkit-box-ordinal-group: 3;
 				-webkit-order: 2;
 				order: 2;
 			}
-			smd-fab-speed-dial.smd-up
-				.smd-fab-speed-dial-container
-				smd-fab-actions {
+			ngx-speed-dial.ngx-speed-dial-up
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions {
 				-webkit-box-orient: vertical;
 				-webkit-box-direction: reverse;
 				-webkit-flex-direction: column-reverse;
@@ -409,28 +406,28 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 				-webkit-order: 1;
 				order: 1;
 			}
-			smd-fab-speed-dial.smd-up
-				.smd-fab-speed-dial-container
-				smd-fab-actions
-				.smd-fab-action-item {
+			ngx-speed-dial.ngx-speed-dial-up
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions
+				.ngx-action-item {
 				margin-bottom: 10px;
 			}
-			smd-fab-speed-dial.smd-left .smd-fab-speed-dial-container {
+			ngx-speed-dial.ngx-speed-dial-left .ngx-speed-dial-container {
 				-webkit-box-orient: horizontal;
 				-webkit-box-direction: normal;
 				-webkit-flex-direction: row;
 				flex-direction: row;
 			}
-			smd-fab-speed-dial.smd-left
-				.smd-fab-speed-dial-container
-				smd-fab-trigger {
+			ngx-speed-dial.ngx-speed-dial-left
+				.ngx-speed-dial-container
+				ngx-speed-dial-trigger {
 				-webkit-box-ordinal-group: 3;
 				-webkit-order: 2;
 				order: 2;
 			}
-			smd-fab-speed-dial.smd-left
-				.smd-fab-speed-dial-container
-				smd-fab-actions {
+			ngx-speed-dial.ngx-speed-dial-left
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions {
 				-webkit-box-orient: horizontal;
 				-webkit-box-direction: normal;
 				-webkit-flex-direction: row-reverse;
@@ -439,28 +436,28 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 				-webkit-order: 1;
 				order: 1;
 			}
-			smd-fab-speed-dial.smd-left
-				.smd-fab-speed-dial-container
-				smd-fab-actions
-				.smd-fab-action-item {
+			ngx-speed-dial.ngx-speed-dial-left
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions
+				.ngx-action-item {
 				margin-right: 10px;
 			}
-			smd-fab-speed-dial.smd-right .smd-fab-speed-dial-container {
+			ngx-speed-dial.ngx-speed-dial-right .ngx-speed-dial-container {
 				-webkit-box-orient: horizontal;
 				-webkit-box-direction: normal;
 				-webkit-flex-direction: row;
 				flex-direction: row;
 			}
-			smd-fab-speed-dial.smd-right
-				.smd-fab-speed-dial-container
-				smd-fab-trigger {
+			ngx-speed-dial.ngx-speed-dial-right
+				.ngx-speed-dial-container
+				ngx-speed-dial-trigger {
 				-webkit-box-ordinal-group: 2;
 				-webkit-order: 1;
 				order: 1;
 			}
-			smd-fab-speed-dial.smd-right
-				.smd-fab-speed-dial-container
-				smd-fab-actions {
+			ngx-speed-dial.ngx-speed-dial-right
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions {
 				-webkit-box-orient: horizontal;
 				-webkit-box-direction: normal;
 				-webkit-flex-direction: row;
@@ -469,17 +466,17 @@ export class SmdFabSpeedDialActions implements AfterContentInit {
 				-webkit-order: 2;
 				order: 2;
 			}
-			smd-fab-speed-dial.smd-right
-				.smd-fab-speed-dial-container
-				smd-fab-actions
-				.smd-fab-action-item {
+			ngx-speed-dial.ngx-speed-dial-right
+				.ngx-speed-dial-container
+				ngx-speed-dial-actions
+				.ngx-action-item {
 				margin-left: 10px;
 			}
 		`
 	],
 	encapsulation: ViewEncapsulation.None
 })
-export class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
+export class NgxSpeedDialComponent implements AfterContentInit, OnDestroy {
 	private isInitialized: boolean = false;
 	private _direction: string = 'up';
 	private _open: boolean = false;
@@ -498,7 +495,7 @@ export class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
 	/**
 	 * Whether this speed dial is opened
 	 */
-	@HostBinding('class.smd-opened')
+	@HostBinding('class.ngx-speed-dial-opened')
 	@Input()
 	get open ()  {
 		return this._open;
@@ -558,10 +555,10 @@ export class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
 
 	@Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-	@ContentChild(SmdFabSpeedDialActions)
-	_childActions?: SmdFabSpeedDialActions;
-	@ContentChild(SmdFabSpeedDialTrigger)
-	_childTrigger?: SmdFabSpeedDialTrigger;
+	@ContentChild(NgxSpeedDialActionsComponent)
+	_childActions?: NgxSpeedDialActionsComponent;
+	@ContentChild(NgxSpeedDialTriggerComponent)
+	_childTrigger?: NgxSpeedDialTriggerComponent;
 
 	constructor (private elementRef: ElementRef, private renderer: Renderer2) {}
 
@@ -605,13 +602,13 @@ export class SmdFabSpeedDialComponent implements AfterContentInit, OnDestroy {
 		if (isAdd) {
 			this.renderer.addClass(
 				this.elementRef.nativeElement,
-				`smd-${elemClass}`
+				`ngx-speed-dial-${elemClass}`
 			);
 		}
 		else {
 			this.renderer.removeClass(
 				this.elementRef.nativeElement,
-				`smd-${elemClass}`
+				`ngx-speed-dial-${elemClass}`
 			);
 		}
 	}

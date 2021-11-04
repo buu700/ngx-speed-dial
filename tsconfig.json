@@ -3,9 +3,9 @@
 	"compileOnSave": false,
 	"compilerOptions": {
 		"paths": {
-			"angular-speed-dial": [
-				"dist/angular-speed-dial/angular-speed-dial",
-				"dist/angular-speed-dial"
+			"ngx-speed-dial": [
+				"dist/ngx-speed-dial/ngx-speed-dial",
+				"dist/ngx-speed-dial"
 			]
 		},
 		"baseUrl": "./",

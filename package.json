@@ -1,15 +1,15 @@
 {
-	"name": "angular-speed-dial",
+	"name": "ngx-speed-dial",
 	"description": "FAB Speed Dial component for Angular Material",
 	"version": "13.0.0",
 	"scripts": {
-		"build": "rm -rf dist 2> /dev/null && cp -f package.json README.md projects/angular-speed-dial/ && npx ng build angular-speed-dial",
+		"build": "rm -rf dist 2> /dev/null && cp -f package.json README.md projects/ngx-speed-dial/ && npx ng build ngx-speed-dial",
 		"prepare": "husky install"
 	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/buu700/angular-speed-dial.git"
+		"url": "https://github.com/buu700/ngx-speed-dial.git"
 	},
 	"prettier": {
 		"arrowParens": "avoid",

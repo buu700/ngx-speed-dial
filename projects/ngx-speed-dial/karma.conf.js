@@ -27,7 +27,7 @@ module.exports = function (config) {
 		coverageReporter: {
 			dir: require('path').join(
 				__dirname,
-				'../../coverage/angular-speed-dial'
+				'../../coverage/ngx-speed-dial'
 			),
 			subdir: '.',
 			reporters: [{type: 'html'}, {type: 'text-summary'}]
