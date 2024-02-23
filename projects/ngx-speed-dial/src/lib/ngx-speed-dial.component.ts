@@ -17,8 +17,11 @@ import {
 	HostListener,
 	Injector
 } from '@angular/core';
-import {MatAnchor, MatButton} from '@angular/material/button';
-import {MatTooltip} from '@angular/material/tooltip';
+import {
+	MatLegacyAnchor as MatAnchor,
+	MatLegacyButton as MatButton
+} from '@angular/material/legacy-button';
+import {MatLegacyTooltip as MatTooltip} from '@angular/material/legacy-tooltip';
 import {combineLatest} from 'rxjs';
 
 const Z_INDEX_ITEM: number = 23;
@@ -49,21 +52,21 @@ export class NgxSpeedDialTriggerComponent {
 	}
 
 	@HostListener('click', ['$event'])
-	_onClick (event: any)  {
+	_onClick (event: any) {
 		if (!this._parent.fixed && !this._parent.forceTooltips) {
 			this._parent.toggle();
 			event.stopPropagation();
 		}
 	}
 
-	getAllButtons ()  {
+	getAllButtons () {
 		return [
 			...(this._anchors ? this._anchors.toArray() : []),
 			...(this._buttons ? this._buttons.toArray() : [])
 		];
 	}
 
-	showTooltips ()  {
+	showTooltips () {
 		if (this._parent.forceTooltips && this.isOpen && this._tooltips) {
 			this._tooltips.forEach((tooltip, i) => {
 				tooltip.hide();
@@ -83,7 +86,7 @@ export class NgxSpeedDialTriggerComponent {
 		}
 	}
 
-	show ()  {
+	show () {
 		this.isOpen = true;
 
 		if (this._parent.forceTooltips && !this.tooltipEventsSet) {
@@ -102,7 +105,7 @@ export class NgxSpeedDialTriggerComponent {
 		this.showTooltips();
 	}
 
-	hide ()  {
+	hide () {
 		this.isOpen = false;
 
 		if (this._parent.forceTooltips && this._tooltips) {
@@ -127,11 +130,14 @@ export class NgxSpeedDialActionsComponent implements AfterContentInit {
 
 	private readonly _parent: NgxSpeedDialComponent;
 
-	constructor (injector: Injector, private renderer: Renderer2) {
+	constructor (
+		injector: Injector,
+		private renderer: Renderer2
+	) {
 		this._parent = injector.get(NgxSpeedDialComponent);
 	}
 
-	getAllButtons ()  {
+	getAllButtons () {
 		return [
 			...(this._anchors ? this._anchors.toArray() : []),
 			...(this._buttons ? this._buttons.toArray() : [])
@@ -153,7 +159,7 @@ export class NgxSpeedDialActionsComponent implements AfterContentInit {
 		this.initButtonStates();
 	}
 
-	private initButtonStates ()  {
+	private initButtonStates () {
 		this.getAllButtons().forEach((button, i) => {
 			this.renderer.addClass(button._getHostElement(), 'ngx-action-item');
 			this.changeElementStyle(
@@ -164,7 +170,7 @@ export class NgxSpeedDialActionsComponent implements AfterContentInit {
 		});
 	}
 
-	showTooltips ()  {
+	showTooltips () {
 		if (this._parent.forceTooltips && this.isOpen && this._tooltips) {
 			this._tooltips.forEach((tooltip, i) => {
 				tooltip.hide();
@@ -184,7 +190,7 @@ export class NgxSpeedDialActionsComponent implements AfterContentInit {
 		}
 	}
 
-	show ()  {
+	show () {
 		this.isOpen = true;
 
 		this.getAllButtons().forEach((button, i) => {
@@ -227,7 +233,7 @@ export class NgxSpeedDialActionsComponent implements AfterContentInit {
 		this.showTooltips();
 	}
 
-	hide ()  {
+	hide () {
 		this.isOpen = false;
 
 		this.getAllButtons().forEach((button, i) => {
@@ -268,7 +274,7 @@ export class NgxSpeedDialActionsComponent implements AfterContentInit {
 		}
 	}
 
-	private getTranslateFunction (value: string)  {
+	private getTranslateFunction (value: string) {
 		let dir = this._parent.direction;
 		let translateFn =
 			dir == 'up' || dir == 'down' ? 'translateY' : 'translateX';
@@ -276,7 +282,7 @@ export class NgxSpeedDialActionsComponent implements AfterContentInit {
 		return translateFn + '(' + sign + value + ')';
 	}
 
-	private changeElementStyle (elem: any, style: string, value: string)  {
+	private changeElementStyle (elem: any, style: string, value: string) {
 		// FIXME - Find a way to create a "wrapper" around the action button(s) provided by the user, so we don't change it's style tag
 		if (value) {
 			this.renderer.setStyle(elem, style, value);
@@ -497,11 +503,11 @@ export class NgxSpeedDialComponent implements AfterContentInit, OnDestroy {
 	 */
 	@HostBinding('class.ngx-speed-dial-opened')
 	@Input()
-	get open ()  {
+	get open () {
 		return this._open;
 	}
 
-	set open (open: boolean)  {
+	set open (open: boolean) {
 		let previousOpen = this._open;
 		this._open = open;
 		if (previousOpen != this._open) {
@@ -515,11 +521,11 @@ export class NgxSpeedDialComponent implements AfterContentInit, OnDestroy {
 	/**
 	 * The direction of the speed dial. Can be 'up', 'down', 'left' or 'right'
 	 */
-	@Input() get direction ()  {
+	@Input() get direction () {
 		return this._direction;
 	}
 
-	set direction (direction: string)  {
+	set direction (direction: string) {
 		let previousDir = this._direction;
 		this._direction = direction;
 		if (previousDir != this.direction) {
@@ -535,11 +541,11 @@ export class NgxSpeedDialComponent implements AfterContentInit, OnDestroy {
 	/**
 	 * The animation mode to open the speed dial. Can be 'fling' or 'scale'
 	 */
-	@Input() get animationMode ()  {
+	@Input() get animationMode () {
 		return this._animationMode;
 	}
 
-	set animationMode (animationMode: string)  {
+	set animationMode (animationMode: string) {
 		let previousAnimationMode = this._animationMode;
 		this._animationMode = animationMode;
 		if (previousAnimationMode != this._animationMode) {
@@ -560,7 +566,10 @@ export class NgxSpeedDialComponent implements AfterContentInit, OnDestroy {
 	@ContentChild(NgxSpeedDialTriggerComponent)
 	_childTrigger?: NgxSpeedDialTriggerComponent;
 
-	constructor (private elementRef: ElementRef, private renderer: Renderer2) {}
+	constructor (
+		private elementRef: ElementRef,
+		private renderer: Renderer2
+	) {}
 
 	ngAfterContentInit () : void {
 		this.isInitialized = true;
@@ -576,18 +585,18 @@ export class NgxSpeedDialComponent implements AfterContentInit, OnDestroy {
 	/**
 	 * Toggle the open state of this speed dial
 	 */
-	public toggle ()  {
+	public toggle () {
 		this.open = !this.open;
 	}
 
 	@HostListener('click')
-	_onClick ()  {
+	_onClick () {
 		if (!this.fixed && !this.forceTooltips && this.open) {
 			this.open = false;
 		}
 	}
 
-	setActionsVisibility ()  {
+	setActionsVisibility () {
 		if (this.open) {
 			this._childTrigger?.show();
 			this._childActions?.show();
@@ -598,7 +607,7 @@ export class NgxSpeedDialComponent implements AfterContentInit, OnDestroy {
 		}
 	}
 
-	private _setElementClass (elemClass: string, isAdd: boolean)  {
+	private _setElementClass (elemClass: string, isAdd: boolean) {
 		if (isAdd) {
 			this.renderer.addClass(
 				this.elementRef.nativeElement,
